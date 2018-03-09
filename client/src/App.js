@@ -17,7 +17,7 @@ class App extends Component {
     // const id = Math.floor(( 1 + Math.random()) * 0x1000).toString()
     // this.setState({ adventures: [...adventures, { id, name }] });
     let trip = { name };
-    fetch('/api/items', {
+    fetch('/api/trips', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -39,12 +39,12 @@ class App extends Component {
   //   });
   //   this.setState({ adventures });
 
-    fetch(`/api/items/${id}`, { method: 'PUT' })
+    fetch(`/api/trips/${id}`, { method: 'PUT' })
       .then( res => res.json() )
-      .then( item => {
-        let adventure = this.state.todos.map( t => {
+      .then( trip => { 
+        let adventures = this.state.adventures.map( t => {
           if (t.id === id)
-            return item
+            return trip
           return t;
         });
 
@@ -53,8 +53,14 @@ class App extends Component {
   }
 
   deleteAdventure = (id) => {
-    const { adventures } = this.state;
-    this.setState({ adventures: adventures.filter(t => t.id !== id) })
+    // const { adventures } = this.state;
+    // this.setState({ adventures: adventures.filter(t => t.id !== id) })
+
+    fetch(`/api/trips/${id}`, { method: 'DELETE' })
+      .then( () => {
+        const { adventures } = this.state;
+        this.setState({ adventures: adventures.filter( t => t.id !==id ) })
+      })
   }
 
   render() {

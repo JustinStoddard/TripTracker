@@ -11,7 +11,7 @@ class Api::TripsController < ApplicationController
     if trip.save
         render json: trip
     else 
-        render json: { errors:  item.errors }, status: :422
+        render json: { errors: trip.errors }, status: :unprocessable_entity
     end
   end
 
@@ -33,6 +33,6 @@ class Api::TripsController < ApplicationController
     end 
 
     def set_trip
-        @trip = TRip.find(params[:id])
+        @trip = Trip.find(params[:id])
     end
 end

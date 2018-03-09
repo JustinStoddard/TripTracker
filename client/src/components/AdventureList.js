@@ -11,7 +11,7 @@ const AdventureList = ({ adventures, updateAdventure, deleteAdventure}) => (
            deleteAdventure={deleteAdventure}
         />
       )
-    }
+    }  
   </div>
 )
 

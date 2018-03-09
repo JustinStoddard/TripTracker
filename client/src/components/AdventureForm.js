@@ -2,7 +2,7 @@ import React from 'react';
 
 
 class AdventureForm extends React.Component {
-  state = { name: ''}
+  state = { name: '' }
 
   handleChange = (e) => {
     this.setState({ name: e.target.value });
@@ -11,7 +11,7 @@ class AdventureForm extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.addTrip(this.state.name);
-    this.setState({ name: ''})
+    this.setState({ name: '' })
   }
 
   render() {
@@ -28,4 +28,4 @@ class AdventureForm extends React.Component {
   }
 }
 
-export default AdventureForm
+export default AdventureForm;
