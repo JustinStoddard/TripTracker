@@ -3,22 +3,58 @@ import AdventureForm from './components/AdventureForm';
 import AdventureList from './components/AdventureList';
 
 class App extends Component {
-  state = { Adventures: [] }
+  state = { adventures: [{ id: 0, name: "California", taken: false },
+  { id: 1, name: "Vegas", taken: false },] }
 
   componentDidMount() { //Makes a call to our rails server to get all Trips
-
+    fetch('/api/trips')
+      .then( res => res.json() )
+      .then( adventures =>  this.setState({ adventures }) )
   }
 
   addTrip = (name) => {
-
+    // const { adventures } = this.state;
+    // const id = Math.floor(( 1 + Math.random()) * 0x1000).toString()
+    // this.setState({ adventures: [...adventures, { id, name }] });
+    let trip = { name };
+    fetch('/api/items', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(trip)
+    }).then( res => res.json() )
+      .then( adventure => {
+        const { adventures } = this.state;
+        this.setState({ adventures: [...adventures, adventure] });
+      })
   }
 
   updateAdventure = (id) => {
+  //   let adventures = this.state.adventures.map( t => {
+  //     if (t.id === id)
+  //       return {...t, taken: !t.taken }
+  //     return t;
+  //   });
+  //   this.setState({ adventures });
 
+    fetch(`/api/items/${id}`, { method: 'PUT' })
+      .then( res => res.json() )
+      .then( item => {
+        let adventure = this.state.todos.map( t => {
+          if (t.id === id)
+            return item
+          return t;
+        });
+
+        this.setState({ adventures });
+      })
   }
 
   deleteAdventure = (id) => {
-
+    const { adventures } = this.state;
+    this.setState({ adventures: adventures.filter(t => t.id !== id) })
   }
 
   render() {

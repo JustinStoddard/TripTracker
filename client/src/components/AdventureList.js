@@ -1,9 +1,9 @@
 import React from 'react';
 import Adventure from './Adventure';
 
-const AdventureList = ({ Adventures, updateAdventure, deleteAdventure}) => (
+const AdventureList = ({ adventures, updateAdventure, deleteAdventure}) => (
   <div className = "row">
-    { adventure.map(adventure => 
+    { adventures.map( adventure => 
         <Adventure
           key={adventure.id}
            {...adventure}
@@ -14,3 +14,5 @@ const AdventureList = ({ Adventures, updateAdventure, deleteAdventure}) => (
     }
   </div>
 )
+
+export default AdventureList;
